@@ -48,7 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
         snakeHead.style.top = `${snakeY}px`;
 
         snakeTail.forEach((tailPart, index) => {
-            const tailElement = document.getElementById(`tail-${index}`);
+            let tailElement = document.getElementById(`tail-${index}`);
+            if (!tailElement) {
+                tailElement = document.createElement('div');
+                tailElement.id = `tail-${index}`;
+                tailElement.classList.add('snake-tail');
+                gameContainer.appendChild(tailElement);
+            }
+
             tailElement.style.left = `${tailPart.x}px`;
             tailElement.style.top = `${tailPart.y}px`;
 
