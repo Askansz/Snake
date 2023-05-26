@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (snakeX < 0 || snakeX >= gameWidth || snakeY < 0 || snakeY >= gameHeight) {
             gameOver();
+            return;
         }
 
         snakeTail.unshift({ x: snakeX, y: snakeY });
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (tailPart.x === snakeX && tailPart.y === snakeY) {
                 gameOver();
+                return;
             }
         });
     }
