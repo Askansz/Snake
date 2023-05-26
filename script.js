@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameContainer = document.querySelector('.game-container');
     const snakeHead = document.getElementById('snake-head');
-    const food = document.getElementById('food');
     const gameWidth = gameContainer.offsetWidth;
     const gameHeight = gameContainer.offsetHeight;
     const cellSize = 20;
@@ -19,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let foodX;
     let foodY;
     let snakeTail = [];
+    let score = 0;
 
     function getRandomPosition() {
         return Math.floor(Math.random() * maxCellX) * cellSize;
@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         snakeTail.unshift({ x: snakeX, y: snakeY });
 
         if (snakeX === foodX && snakeY === foodY) {
+            score++;
+            updateScore();
+
             createFood();
         } else {
             snakeTail.pop();
@@ -62,14 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         food.style.top = `${foodY}px`;
     }
 
+    function updateScore() {
+        const scoreElement = document.getElementById('score');
+        scoreElement.textContent = `Score: ${score}`;
+    }
+
     function gameOver() {
-        alert('Game Over');
+        alert(`Game Over! Your Score: ${score}`);
         snakeX = 0;
         snakeY = 0;
         snakeTail = [];
         currentDirection = directions['D'];
         snakeHead.style.left = '0';
         snakeHead.style.top = '0';
+        score = 0;
+        updateScore();
         createFood();
     }
 
